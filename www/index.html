@@ -14,13 +14,13 @@
     <h1>TaskApp</h1>
     <div id="messages"></div>
     <br>
-    <form onsubmit="return add()">
+    <div id="block_add_task">
         <input type="text" id="task" placeholder="Nueva tarea">
-        <button>Añadir</button>
-    </form>
-
-    <div id="block">
-        <div id="task_to_do"></div>
+        <button>Filtrar</button>
+        <button onclick="return add()">Añadir</button>
+    </div>
+    <div id="current_tasks">
+        
     </div>
     
 </body>
