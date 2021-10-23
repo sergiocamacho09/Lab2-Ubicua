@@ -9,7 +9,6 @@ const io = require("socket.io")(server);
 const fs = require('fs');
 
 app.use(express.static('www'));
-
 io.on("connection", function(socket){
   console.log("nuevo cliente | Socket: " + socket.id);
 
@@ -23,6 +22,16 @@ io.on("connection", function(socket){
       if(err) throw err;
       console.log("Tarea añadida!");
     });
+  });
+});
+
+app.get("/tasks/all_tasks", function(req,res){
+  console.log("ENTRA");
+  fs.readFile('task.json', function(err,data){
+    if(err) throw err;
+    console.log("entra");
+    console.log(JSON.parse(data));
+    res.send(data);
   });
 });
 

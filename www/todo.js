@@ -11,7 +11,7 @@ const TIME_THRESHOLD = 200;
 const SPACE_THRESHOLD = 200;
 
 /*Controlamos el control táctil de nuestra aplicación*/
-document.addEventListener("touchstart", function(e){
+/*document.addEventListener("touchstart", function(e){
     e.preventDefault();
     start_x = e.targetTouches[0].screenX;
     start_time = e.timeStamp;
@@ -28,7 +28,7 @@ document.addEventListener("touchend", function(e){
     if(end_time - start_time < TIME_THRESHOLD && end_x - start_x > SPACE_THRESHOLD){
         remove();
     }
-});
+});*/
 
 /*Añade una tarea a la lista de tareas de nuestra aplicación*/
 function add() {
@@ -44,7 +44,8 @@ function add() {
             "done": false,
         };
         /*Añadimos nuestra tarea al inicio de nuestra lista*/
-        tasks.unshift(task);
+        //console.log(load_tasks());
+        //tasks.unshift(task);
         socket.emit("new-task", task);
         /*Reasignamos los id's a las tareas de nuestra lista*/
         for (i = 0; i < tasks.length; i++) {
@@ -54,18 +55,24 @@ function add() {
     } else {
         console.log("Por favor, añade una tarea a la lista");
     }
-    
-    
-
     //console.log(tasks);
-    return false;
 }
 
-function insertInHTML(array){
+// function insertInHTML(array) {
 
+// }
+
+// /*Elimina una tarea de nuestra lista*/
+// function remove(e) {
+
+// }
+
+
+async function load_tasks() {
+    const response = await fetch("/tasks/all_tasks");
+    const data = await response.text();
+    tasks = JSON.parse(data);
 }
 
-/*Elimina una tarea de nuestra lista*/
-function remove(e) {
-   
-}   
+
+load_tasks();
