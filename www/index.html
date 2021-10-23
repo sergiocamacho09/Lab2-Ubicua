@@ -5,9 +5,8 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>TaskApp</title>
-    <link rel="stylesheet" type="text/html" href="/www/style.css" media="screen"/>
+    <link rel="stylesheet" type="text/html" href="/www/style.css" media="screen" />
     <script src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript" src="todo.js"></script> 
 </head>
 
 <body>
@@ -16,13 +15,14 @@
     <br>
     <div id="block_add_task">
         <input type="text" id="task" placeholder="Nueva tarea">
-        <button>Filtrar</button>
+        <button onclick="return filter()">Filtrar</button>
         <button onclick="return add()">Añadir</button>
     </div>
     <div id="current_tasks">
-        
+
     </div>
-    
+
 </body>
+<script type="text/javascript" src="todo.js"></script>
 
 </html>

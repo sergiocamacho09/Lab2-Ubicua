@@ -13,7 +13,7 @@ const SPACE_THRESHOLD = 200;
 /*Obtenemos la lista de tareas al conectarnos con el cliente por primera vez*/
 load_tasks();
 /*Añadimos nuestras tareas a la aplicación HTML*/
-insertInHTML();
+insertInHTML(tasks);
 
 /*Controlamos el control táctil de nuestra aplicación*/
 // document.addEventListener("touchstart", function(e){
@@ -54,23 +54,34 @@ function add() {
 
 
 /*Añadimos las tareas a nuestra aplicación HTML*/
-function insertInHTML() {
+function insertInHTML(array) {
     /*Seleccionamos el div general en el que irán nuestras tareas*/
     var previous_div2 = document.querySelector('#current_tasks');
     /*Creamos los divs que contendrán cada una de nuestras tareas */
     var text = "";
-    for(i = tasks.length - 1; i >= 0 ; i--){
-        text += "<div class = 'task'>" + tasks[i].title + "</div>"; 
+    for(i = array.length - 1; i >= 0 ; i--){
+        text += "<div class = 'task'>" + array[i].title + "</div>"; 
     };
     previous_div2.innerHTML = text;
 };
 
-
+/*Filtra por una tarea buscada dentro de nuestra aplicación*/
+function filter(){
+    var text_to_filter = document.getElementById("task").value;
+    var filter_arr = [];
+    for(i = 0; i < tasks.length; i++){
+        var aux = tasks[i].title.toUpperCase();
+        if(aux.includes(text_to_filter.toUpperCase())){
+            filter_arr.push(tasks[i]);
+        };
+    };   
+    insertInHTML(filter_arr);
+};
 
 // /*Elimina una tarea de nuestra lista*/
-// function remove(e) {
-
-// }
+function remove(e) {
+    
+}
 
 
 
@@ -78,7 +89,7 @@ async function load_tasks() {
     const response = await fetch("/tasks/all_tasks");
     const data = await response.text();
     tasks = JSON.parse(data);
-    insertInHTML();
+    insertInHTML(tasks);
     console.log(tasks);
 };
 
