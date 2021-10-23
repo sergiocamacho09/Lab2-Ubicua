@@ -97,7 +97,6 @@ function remove(id) {
 /*Marca como completada una tarea en la aplicación HTML*/
 function done(id) {
     socket.emit("task_done", id);
-    //document.getElementById(tasks[i].id).style.backgroundColor = 'green';
 };
 
 
