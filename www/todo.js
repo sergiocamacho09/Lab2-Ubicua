@@ -69,7 +69,12 @@ function insertInHTML(array) {
     /*Creamos los divs que contendrán cada una de nuestras tareas */
     var text = "";
     for (i = array.length - 1; i >= 0; i--) {
-        text += "<div class='task' id='" + array[i].id + "'>" + array[i].title + "</div>";
+        if(array[i].done == false){
+            text += "<div class='task_false' id='" + array[i].id + "'>" + array[i].title + "</div>";
+        }
+        if(array[i].done == true){
+            text += "<div class='task_true' id='" + array[i].id + "'>" + array[i].title + "</div>";
+        }
     };
     previous_div2.innerHTML = text;
 };
@@ -97,6 +102,9 @@ function remove(id) {
 /*Marca como completada una tarea en la aplicación HTML*/
 function done(id) {
     socket.emit("task_done", id);
+    var div = document.getElementById(id);
+    console.log(id);
+    div.style.backgroundColor = 'green';
 };
 
 

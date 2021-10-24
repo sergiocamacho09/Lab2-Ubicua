@@ -10,13 +10,16 @@
 </head>
 
 <body>
-    <h1>TaskApp</h1>
-    <div id="messages"></div>
-    <br>
+    <div id="title">
+        <h1 id="title1">Task</h1>
+        <h1 id="title2">App</h1>
+    </div>
     <div id="block_add_task">
-        <input type="text" id="task" placeholder="Nueva tarea">
-        <button onclick="return filter()">Filtrar</button>
-        <button onclick="return add()">Añadir</button>
+        <div id="div_add_task">
+            <input type="text" id="task" placeholder="Nueva tarea">
+            <button onclick="return filter()">Filtrar</button>
+            <button onclick="return add()">Añadir</button>
+        </div>
     </div>
     <div id="current_tasks">
 

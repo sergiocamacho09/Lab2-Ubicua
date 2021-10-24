@@ -1,4 +1,5 @@
 let aux = [];
+const { count } = require('console');
 /*aplicación express que pasa a un servidor http*/
 const express = require('express');
 const app = express();
@@ -22,19 +23,17 @@ io.on("connection", function(socket){
 
   /*Añadimos una nueva tarea a nuestro archivo JSON para que se actualice en nuestra aplicación*/
   socket.on("new-task", function(task){
-    /*Variable que controla los ID's dentro de nuestra lista de tareas*/
-    
+    // /*Variable que controla los ID's dentro de nuestra lista de tareas*/
+    // if(aux.length == 0) counter = 0;
     /*Creamos nuestra nueva tarea con todos los datos para añadirla al array auxiliar*/
     var add_task = {
         "id": counter,
         "title": task,
         "done": false
     }
-
-    if(aux.length == 0) counter = 0;
-    counter++;
     /*Usamos el array auxiliar para guardar nuestras nuevas tareas*/
     aux.push(add_task);
+    counter++;
     /*Convertimos nuestro array auxilira a formato JSON*/
     var new_task = JSON.stringify(aux, null, '\t');
     /*Leemos nuestro fichero y añadimos nuestro array con todas las tareas*/
@@ -53,13 +52,16 @@ io.on("connection", function(socket){
         aux.splice(i,1);
       }
     }
-
+    if(aux.length == 0){
+      counter = 0;
+    }
     var new_task_list = JSON.stringify(aux, null, '\t');
 
     fs.writeFile('task.json', new_task_list, function(err){
       if(err) throw err;
       console.log("Tarea eliminada!");
     });
+    console.log(aux);
   });
 
 
@@ -67,19 +69,20 @@ io.on("connection", function(socket){
   socket.on("task_done", function(id){
     for(i = 0; i < aux.length; i++){
       if(aux[i].id == id){
-        if(aux[i].done == false) aux[i].done = true;
-        
+        if(aux[i].done == false){
+          aux[i].done = true;
+        }
       }
     }
 
     var new_task_list = JSON.stringify(aux, null, '\t');
 
-
     fs.writeFile('task.json', new_task_list, function(err){
       if(err) throw err;
       console.log("Tarea completada!");
     });
-  })
+    
+  });
 });
 
 app.get("/tasks/all_tasks", function(req,res){
