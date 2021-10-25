@@ -1,5 +1,5 @@
-/*Estilo aplicación general*/
 
+/*Estilo aplicación web*/
 html{
     background-color: rgb(160, 150, 150);
 }
@@ -75,4 +75,24 @@ button {
     margin: 2.5px 0px 2.5px 0px;
     padding: 1px 2.5px;
 }
+
+
+/*****************************************************************/
+
+
+/*Estilo para dispositivos móviles*/
+
+/*Estilo y colocación del título de la aplicación*/
+@media screen and (max-width: 600px) {
+    #title1{
+        font-size: 100px;
+    }
+        
+    #title2{
+        font-size: 100px;
+    }
+        
+}   
+
+
 
